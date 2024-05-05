@@ -1,9 +1,9 @@
 import React from 'react'
 
-import '../styles/filters.css'
 import { FILTER_ARRAY } from '../utils'
 import FilterDropdown from './FilterDropdown'
 import FilterSearch from './FilterSearch'
+import '../styles/filters.css'
 
 const Filters = ({setFilters}) => {
   return (

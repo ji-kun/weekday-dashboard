@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import './App.css';
-import Card from './components/Card';
+
 import { requestOptions } from './api';
+import Card from './components/Card';
 import Filters from './components/Filters';
+import './App.css';
 
 function App() {
   const [jobs, setJobs] = useState([]);

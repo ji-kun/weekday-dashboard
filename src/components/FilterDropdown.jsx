@@ -6,7 +6,7 @@ const FilterDropdown = ({filter, setFilters}) => {
   const [showDropdown, setShowDropdown] = useState(false)
 
   const anchorRef = useRef(null)
-  // useOutsideClick(anchorRef, () => setShowDropdown(false))
+  useOutsideClick(anchorRef, () => setShowDropdown(false))
 
   const handleValueChange = (value) => {
     setValue(value)
@@ -22,7 +22,7 @@ const FilterDropdown = ({filter, setFilters}) => {
   }
 
   return (
-    <div className='dropdown-container'>
+    <div ref={anchorRef} className='dropdown-container'>
       <div 
         className={`dropdown-title ${showDropdown && 'active'}`}
         style={{ minWidth: filter.minWidth }}
@@ -47,7 +47,7 @@ const FilterDropdown = ({filter, setFilters}) => {
       </div>
       {showDropdown
        ?
-       <div ref={anchorRef} className='dropdown'>
+       <div className='dropdown'>
          {
            filter.values.map((value) => {
              return (

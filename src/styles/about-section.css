@@ -1,0 +1,41 @@
+.about-company {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+  margin-top: 10px;
+}
+
+.about-container {
+  height: 210px;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.about-description {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.view-job-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  background: rgb(255,255,255);
+  background: linear-gradient(0deg, rgba(255,255,255,1) 8%, rgba(255,255,255,0.8) 100%);
+}
+
+.view-job {
+  text-decoration: none;
+  color: #4943da;
+  font-size: 14px;
+  font-weight: 300;
+}
