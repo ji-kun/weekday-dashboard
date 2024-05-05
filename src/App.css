@@ -13,10 +13,15 @@
 .cards-container {
   max-width: 100%;
   height: 100%;
-  margin: auto;
   display: flex;
   justify-content: space-between;
-  padding: 2rem 4rem;
+  margin: 2rem 4rem;
   flex-wrap: wrap;
-  gap: 24px 12px;
+  gap: 24px 8px;
+}
+
+@media only screen and (max-width: 600px) {
+  .cards-container {
+    margin: 2rem 2rem;
+  }
 }

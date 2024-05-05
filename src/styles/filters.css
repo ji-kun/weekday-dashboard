@@ -73,3 +73,9 @@
 .dropdown-item:hover {
   background-color: #a1d2ff;
 }
+
+@media only screen and (max-width: 600px) {
+  .filter-container {
+    padding: 2rem 2rem;
+  }
+}

@@ -8,6 +8,7 @@ function App() {
   const [jobs, setJobs] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [offset, setOffset] = useState(0);
+  const [reachedEnd, setReachedEnd] = useState(false);
   const [isBottom, setIsBottom] = useState(false);
 
   const [filters, setFilters] = useState({
@@ -29,6 +30,7 @@ function App() {
     .then((response) => response.json())
     .then((result) => {
       let temp = [...jobs, ...result.jdList];
+      setReachedEnd(temp.length >= result.totalCount)
       setJobs(temp)
     })
   }
@@ -59,7 +61,9 @@ function App() {
 
     if (scrollTop + windowHeight >= scrollHeight - 20 && !isBottom) {
       setIsBottom(true);
-      setOffset((prevCount) => prevCount + 1); // Increment count only once per scroll to bottom
+      if(!reachedEnd) {
+        setOffset((prevCount) => prevCount + 1);
+      }
     } else {
       setIsBottom(false);
     }
