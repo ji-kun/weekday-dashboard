@@ -30,7 +30,13 @@ function App() {
     })))
     .then((response) => response.json())
     .then((result) => {
+      /**
+       * Create a temporary array to append newer array elements
+       */
       let temp = [...jobs, ...result.jdList];
+      /**
+       * Check if API has reached it's end
+       */
       setReachedEnd(temp.length >= result.totalCount)
       setJobs(temp)
     })
@@ -39,6 +45,9 @@ function App() {
   useEffect(() => {
     let temp = jobs;
 
+    /**
+     * Filter based on only valid data dummy api values
+     */
     if(filters?.experience) {
       temp = temp.filter((job) => job.minExp && job.minExp >= Number(filters?.experience))
     }
@@ -60,6 +69,10 @@ function App() {
     const windowHeight = window.innerHeight || document.documentElement.clientHeight;
     const scrollHeight = document.documentElement.scrollHeight;
 
+    /**
+     * Update offset for new values when page bottom is reached
+     * for infinite scroll implementation
+     */
     if (scrollTop + windowHeight >= scrollHeight - 20 && !isBottom) {
       setIsBottom(true);
       if(!reachedEnd) {

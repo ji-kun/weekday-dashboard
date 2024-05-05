@@ -3,6 +3,10 @@ import React, { useCallback } from 'react'
 import '../styles/card-header.css'
 
 const CardHeader = ({job}) => {
+  /**
+   * Function to capitalize the first letter for 
+   * capitalized values of lowercase dummy api values
+   */
   const capitalize = useCallback((string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }, [])

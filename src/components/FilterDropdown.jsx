@@ -9,9 +9,16 @@ const FilterDropdown = ({filter, setFilters}) => {
   useOutsideClick(anchorRef, () => setShowDropdown(false))
 
   const handleValueChange = (value) => {
+    /**
+   * Set value for locally updated state value of dropdown
+   * Close dropdown on input change and deletion
+   */
     setValue(value)
     setShowDropdown(false)
 
+    /**
+   * Check for changes in related fields based on dummy api
+   */
     if(filter.title === 'Roles') {
       setFilters(prev => ({...prev, roles: value}))
     } else if(filter.title === 'Experience') {
