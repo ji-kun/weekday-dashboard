@@ -5,6 +5,11 @@
   font-family: "Lexend", sans-serif;
 }
 
+.card:hover {
+  transform: scale(1.02);
+  transition: all ease 0.3s;
+}
+
 .cards-container {
   max-width: 100%;
   height: 100%;

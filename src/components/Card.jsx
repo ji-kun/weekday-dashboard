@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import BlurImage from '../images/blur-image.webp'
 import '../styles/card.css'
 
 const Card = ({job}) => {
-  console.log("job", job)
-  const capitalize = (string) => {
+  const capitalize = useCallback((string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  }, [])
 
   return (
     <div className='card'>
@@ -58,7 +57,7 @@ const Card = ({job}) => {
         ?
         <div className='info-container'>
           <div className='info-title'>
-           Minimum Experience {job.salaryCurrencyCode}
+           Minimum Experience
           </div>
           <div className='info-subtitle'>
             {job.minExp} years

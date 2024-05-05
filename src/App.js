@@ -2,21 +2,88 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Card from './components/Card';
 import { requestOptions } from './api';
+import Filters from './components/Filters';
 
 function App() {
-  const [jobs, setJobs] = useState();
+  const [jobs, setJobs] = useState([]);
+  const [filteredJobs, setFilteredJobs] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [isBottom, setIsBottom] = useState(false);
+
+  const [filters, setFilters] = useState({
+    roles: null,
+    experience: null,
+    name: '',
+    salary: null,
+  });
+  
+  useEffect(() => {
+    fetchData()
+  }, [offset]);
+
+  const fetchData = async () => {
+    fetch("https://api.weekday.technology/adhoc/getSampleJdJSON", requestOptions(JSON.stringify({
+      "limit": 12,
+      "offset": offset,
+    })))
+    .then((response) => response.json())
+    .then((result) => {
+      let temp = [...jobs, ...result.jdList];
+      setJobs(temp)
+    })
+  }
 
   useEffect(() => {
-    fetch("https://api.weekday.technology/adhoc/getSampleJdJSON", requestOptions)
-    .then((response) => response.json())
-    .then((result) => setJobs(result.jdList))
-  }, []);
+    let temp = jobs;
+
+    if(filters?.experience) {
+      temp = temp.filter((job) => job.minExp && job.minExp >= Number(filters?.experience))
+    }
+    if(filters?.name !== '') {
+      temp = temp.filter((job) => job.companyName.toUpperCase().includes(filters?.name.toUpperCase()))
+    }
+    if(filters?.roles) {
+      temp = temp.filter((job) => job.jobRole && job.jobRole.toUpperCase() === filters?.roles.toUpperCase())
+    }
+    if(filters?.salary) {
+      temp = temp.filter((job) => job.minJdSalary && job.minJdSalary >= Number(filters?.salary))
+    }
+
+    setFilteredJobs(temp);
+  }, [filters, jobs])
+
+  const handleScroll = () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    const scrollHeight = document.documentElement.scrollHeight;
+
+    if (scrollTop + windowHeight >= scrollHeight - 20 && !isBottom) {
+      setIsBottom(true);
+      setOffset((prevCount) => prevCount + 1); // Increment count only once per scroll to bottom
+    } else {
+      setIsBottom(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isBottom]);
 
   return (
     <div className="App">
+      <Filters setFilters={setFilters} />
       <div className='cards-container'>
         {
-          jobs && jobs.map((job) => <Card job={job} />)
+          filteredJobs && filteredJobs.map((job, index) => (
+            <Card 
+              key={index}
+              job={job}
+            />
+          ))
         }
       </div>
     </div>

@@ -8,11 +8,6 @@
   padding-bottom: 120px;
 }
 
-.card:hover {
-  transform: scale(1.02);
-  transition: all ease 0.3s;
-}
-
 .posted-at {
   padding: 4px 6px;
   border-radius: 10px;
