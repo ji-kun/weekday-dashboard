@@ -3,30 +3,39 @@ import React from 'react'
 import BlurImage from '../images/blur-image.webp'
 import '../styles/card.css'
 
-const Card = ({showSkills = true}) => {
+const Card = ({job}) => {
+  console.log("job", job)
+  const capitalize = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   return (
     <div className='card'>
       <div className='posted-at'>
         ⏳ Posted 4 days ago
       </div>
       <div className='card-header'>
-        <div className='header-image'>
-          4
-        </div>
+        <img src={job.logoUrl} alt="company-logo" className='header-image' />
         <div className='header-texts'>
           <div className='header-title'>
-            FlexWash Technologies
+            {job.companyName}
           </div>
           <div className='header-subtitle'>
-            Senior Engineer
+            {capitalize(job.jobRole)}
           </div>
           <div className='header-subtext'>
-            India | Exp: 5-5 years
+            {capitalize(job.location)} 
+            {job.minExp || job.maxExp
+              ? <> | Exp: {job.minExp ? <>{job.minExp} - </>: null}{job.maxExp} years</>
+              : null
+            }
           </div>
         </div>
       </div>
       <div className='salary'>
-        Estimated Salary: ₹30 - 60 LPA ✅
+        Estimated Salary: ₹
+        {job.minJdSalary ? <>{job.minJdSalary} - </>: null}
+        {job.maxJdSalary} LPA ✅
       </div>
       <div className='about-company'>
         About Company:
@@ -36,44 +45,29 @@ const Card = ({showSkills = true}) => {
           About us
         </div>
         <div className='about-description'>
-          Trumio is the world's first University Projects Ecosystem platform enabling global clients to harness students, professors, and institutional capabilities to speed priority project execution for their business. Next-generation talent organized as teams with diverse skills, find and deliver impactful outcomes working within a secure project environment on Trumio. With AI- assistance built into each process step - Trumio makes it easy for clients and teams to stay on track, collaborate, and achieve desired project outcomes. Beyond achieving project goals, clients, students, and universities benefit from deeper engagement, a positive reputation, and nurturing a vibrant future talent pipeline. Overall, Trumio's mission is to build an equitable future of work, where client and talent engagement and access are truly democratized.
+          {job.jobDetailsFromCompany}
         </div>
         <div className='view-job-container'>
-          <a href="#" className='view-job'>
+          <a href={job.jdLink} target='_blank' rel='noreferrer' className='view-job'>
             View job
           </a>
         </div>
       </div>
-      {showSkills
+      {
+        job.minExp
         ?
         <div className='info-container'>
-            <div className='info-title'>
-              Skills
-            </div>
-            <div className='skill-chips'>
-              <div className='skill-chip'>
-                Senior Engineer
-              </div>
-              <div className='skill-chip'>
-                Senior Engineer
-              </div>
-              <div className='skill-chip'>
-                Senior Engineer
-              </div>
-            </div>
-          </div>
-        : null
-      }
-        <div className='info-container'>
           <div className='info-title'>
-           Minimum Experience
+           Minimum Experience {job.salaryCurrencyCode}
           </div>
           <div className='info-subtitle'>
-            3 years
+            {job.minExp} years
           </div>
         </div>
+        : null
+      }
         <div className='buttons-container'>
-          <button className='buttons apply-button'>
+          <button href={job.jdLink} className='buttons apply-button'>
             ⚡ Easy Apply
           </button>
           <div className='buttons referral-button'>

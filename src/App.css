@@ -13,5 +13,5 @@
   justify-content: space-between;
   padding: 2rem 4rem;
   flex-wrap: wrap;
-  gap: 1.2rem;
+  gap: 24px 12px;
 }
